@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ryo NewsFeed</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Tab1">Business</string>
+    <string name="Tab2">Psychology</string>
+    <string name="Tab3">Singapore</string>
+    <string name="Tab4">Kanye West</string>
+
+</resources>
