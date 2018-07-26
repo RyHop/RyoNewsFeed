@@ -34,11 +34,12 @@ public class NewsArticleLoader extends android.support.v4.content.AsyncTaskLoade
 
     @Override
     public List<NewsArticle> loadInBackground() {
+        QueryUtils internetMessenger = new QueryUtils();
         Log.v(LOG_TAG, "NewsArticle is calling loadInBackground");
         URL url = createUrl(articleURL);
         Log.v(LOG_TAG, "Created URL");
 
-        return null;
+        return internetMessenger.getDataFromInternet(url);
     }
 
 
