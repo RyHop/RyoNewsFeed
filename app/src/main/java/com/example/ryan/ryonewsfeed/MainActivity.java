@@ -13,11 +13,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         // Create an adapter that knows which fragment should be shown on each page
-        NewsTopicPageAdapter adapter = new NewsTopicPageAdapter(getSupportFragmentManager());
+        NewsTopicPageAdapter adapter = new NewsTopicPageAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(adapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);    }
+        tabLayout.setupWithViewPager(viewPager);
+
+    }
 }
 
 

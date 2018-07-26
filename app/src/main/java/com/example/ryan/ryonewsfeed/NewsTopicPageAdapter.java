@@ -1,15 +1,21 @@
 package com.example.ryan.ryonewsfeed;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+
 public class NewsTopicPageAdapter extends FragmentPagerAdapter {
+    Context context;
 
-    private String tabTitles[] = new String[]{String.valueOf(R.string.Tab1), String.valueOf(R.string.Tab2), String.valueOf(R.string.Tab3), String.valueOf(R.string.Tab4)};
 
-    public NewsTopicPageAdapter(FragmentManager fm) {
+
+
+
+    public NewsTopicPageAdapter(FragmentManager fm, Context R2) {
         super(fm);
+        this.context = R2;
     }
 
     @Override
@@ -33,7 +39,20 @@ public class NewsTopicPageAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position
-        return tabTitles[position];
 
+        switch (position) {
+            case 0:
+                return context.getString(R.string.Tab1);
+            case 1:
+                return context.getString(R.string.Tab2);
+            case 2:
+                return context.getString(R.string.Tab3);
+            case 3:
+                return context.getString(R.string.Tab4);
+            default:
+                return context.getString(R.string.Tab1);
+
+
+        }
     }
 }

@@ -1,13 +1,16 @@
 package com.example.ryan.ryonewsfeed;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class PsychologyFragment extends Fragment {
@@ -49,6 +52,18 @@ public class PsychologyFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+        ConnectivityManager cm =
+                (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if (!isConnected){
+            TextView showMessage = new TextView(getContext());
+            Toast.makeText(getContext(),getContext().getString(R.string.InternetErrorMessage),Toast.LENGTH_LONG).show();
+
         }
     }
 
