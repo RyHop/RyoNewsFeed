@@ -8,8 +8,11 @@
     tools:context=".BusinessFragment">
 
 
-
-    <!-- TODO: Update blank fragment layout -->
-
-
+    <ListView
+        android:id="@+id/default_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

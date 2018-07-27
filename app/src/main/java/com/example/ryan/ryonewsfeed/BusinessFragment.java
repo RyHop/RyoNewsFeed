@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +68,7 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_business, container, false);
+        return inflater.inflate(R.layout.fragment_default_list_layout, container, false);
     }
 
 
@@ -84,11 +83,7 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoadFinished(@NonNull Loader<List<NewsArticle>> loader, List<NewsArticle> data) {
         // When we have the list data from website
         Log.v(LOG_TAG, "We have the data...over");
-        TextView idk = new TextView(getContext());
-        idk.setText(data.toString());
-        RelativeLayout layout = new RelativeLayout(getContext());
-        layout.findViewById(R.id.businessRLayout);
-        layout.addView(idk);
+
         Toast.makeText(getContext(), data.toString(), Toast.LENGTH_LONG).show();
 
 
