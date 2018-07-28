@@ -31,21 +31,21 @@ public class CustomListAdapter extends ArrayAdapter<NewsArticle> {
 
 
         //Getting Textview for the headline
-        TextView headlineTextView = (TextView) listLayout.findViewById(R.id.headlineTextView);
+        TextView headlineTextView = listLayout.findViewById(R.id.headlineTextView);
         headlineTextView.setTextSize(20f);
         headlineTextView.setText(currentArticle.getaTitle());
         headlineTextView.setTypeface(null, Typeface.BOLD);
 
 
         //Getting Second Textview for author name and date
-        TextView authorAndDate = (TextView) listLayout.findViewById(R.id.authorAndDate);
+        TextView authorAndDate = listLayout.findViewById(R.id.authorAndDate);
         authorAndDate.setTextSize(15f);
-        String authorAndDateString = getContext().getString(R.string.authorStringResource) + " " + currentArticle.getaAuthor();
+        String authorAndDateString = getContext().getString(R.string.authorStringResource) + " " + currentArticle.getaAuthor() + " " + getContext().getString(R.string.dateStringResource) + " " + currentArticle.getaDate();
         authorAndDate.setText(authorAndDateString);
 
         //Setting the image backgournd as pink for now
 
-        ImageView imageOfArticle = (ImageView) listLayout.findViewById(R.id.newsArticleImageView);
+        ImageView imageOfArticle = listLayout.findViewById(R.id.newsArticleImageView);
         imageOfArticle.setBackgroundColor(getContext().getResources().getColor(R.color.colorAccent));
 
 

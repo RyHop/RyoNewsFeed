@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,6 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         super.onCreate(savedInstanceState);
         Log.v(LOG_TAG, "Business Fragment Created");
 
-
         // Seeing if there is internet connectivity..code from official Android WEbsite about connecting to the Internet
         ConnectivityManager cm =
                 (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -65,15 +65,12 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
 
         }
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_default_list_layout, container, false);
-
-
 
         // Inflate the layout for this fragment
         return rootView;
@@ -91,13 +88,20 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoadFinished(@NonNull Loader<List<NewsArticle>> loader, List<NewsArticle> data) {
         // When we have the list data from website
         Log.v(LOG_TAG, "We have the data...over");
-
+        RelativeLayout relativeLayout = rootView.findViewById(R.id.businessRLayout);
         ListView businessListView = rootView.findViewById(R.id.default_listView);
+
+        // Checking if the data null
+        if (data == null) {
+            businessListView.setVisibility(View.INVISIBLE);
+            TextView dataMessage = rootView.findViewById(R.id.noDataDisplayedTextView);
+            dataMessage.setVisibility(View.VISIBLE);
+            dataMessage.setText(getContext().getString(R.string.noDataString));
+        }
+
         CustomListAdapter theArticleAdapter = new CustomListAdapter(getContext(), data);
         businessListView.setOnItemClickListener(mMessageClickedHandler);
         businessListView.setAdapter(theArticleAdapter);
-
-
 
     }
 
@@ -112,7 +116,6 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
             if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivity(intent);
             }
-
 
         }
 

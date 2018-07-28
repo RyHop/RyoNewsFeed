@@ -13,7 +13,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class QueryUtils {
@@ -37,7 +40,6 @@ public class QueryUtils {
         Log.v(LOG_TAG, "Extractring the jsonObject");
         return extractFeatureFromJson(jsonResponse);
 
-
     }
 
     /**
@@ -55,7 +57,14 @@ public class QueryUtils {
 
             for (int j = 0; j < resultsArray.length(); j++) {
                 JSONObject aNewsArtile = resultsArray.getJSONObject(j);
-                String Date = aNewsArtile.getString("webPublicationDate");
+                String Date1 = aNewsArtile.getString("webPublicationDate");
+
+                //Formmating Data...use the official Website for SimpleDateFormat and this stackoverflow for reference:https://stackoverflow.com/questions/35939337/how-to-convert-date-to-a-particular-format-in-android#35939543
+                SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                Date newDate = spf.parse(Date1);
+                spf = new SimpleDateFormat("MMM '/' yyyy");
+                Date1 = spf.format(newDate);
+
                 String Title = aNewsArtile.getString("webTitle");
                 String URL = aNewsArtile.getString("webUrl");
 
@@ -65,7 +74,7 @@ public class QueryUtils {
                 String Author = theOneTagsObject.getString("webTitle");
 
                 //Put the article in the array, URL, Title, Author, Date
-                theArticles.add(new NewsArticle(URL, Title, Author, Date));
+                theArticles.add(new NewsArticle(URL, Title, Author, Date1));
 
             }
             Log.v(LOG_TAG, "Done getting the data about the articles");
@@ -73,6 +82,9 @@ public class QueryUtils {
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the JSON results", e);
+        } catch (ParseException e) {
+            Log.v(LOG_TAG, "Problems with formatting the date");
+            e.printStackTrace();
         }
         return theArticles;
     }
