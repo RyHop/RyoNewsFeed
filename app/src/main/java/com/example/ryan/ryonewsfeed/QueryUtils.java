@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueryUtils {
+    //Got Base code from the Quake App through Udacity, then I put my own spin on it.
     private String LOG_TAG = "QueryUtils";
 
 

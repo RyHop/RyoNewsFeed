@@ -6,6 +6,7 @@
     <string name="Tab3">Singapore</string>
     <string name="Tab4">Kanye West</string>
     <string name="idk">hello</string>
+    <string name="authorStringResource">Author:</string>
     <string name="InternetErrorMessage">No Internet Access</string>
 
 
