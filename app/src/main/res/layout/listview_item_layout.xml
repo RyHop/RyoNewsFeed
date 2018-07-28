@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <ImageView
                 android:id="@+id/newsArticleImageView"
                 android:layout_width="match_parent"
@@ -39,7 +38,6 @@
                 android:layout_height="wrap_content"
                 tools:text="HEYYYYY" />
         </RelativeLayout>
-
     </android.support.v7.widget.CardView>
 </LinearLayout>
 

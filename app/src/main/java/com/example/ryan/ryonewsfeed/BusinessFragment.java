@@ -24,7 +24,7 @@ import android.widget.Toast;
 import java.util.List;
 
 
-public class BusinessFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<NewsArticle>>{
+public class BusinessFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<NewsArticle>> {
     private String LOG_TAG = "BusinessFragment";
     View rootView;
 
@@ -49,15 +49,15 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
 
         // Seeing if there is internet connectivity..code from official Android WEbsite about connecting to the Internet
         ConnectivityManager cm =
-                (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
 
-        if (!isConnected){
+        if (!isConnected) {
             TextView showMessage = new TextView(getContext());
-            Toast.makeText(getContext(),getContext().getString(R.string.InternetErrorMessage),Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getContext().getString(R.string.InternetErrorMessage), Toast.LENGTH_LONG).show();
 
         } else {
             Log.v(LOG_TAG, "It has internet, About to execute Loader");
@@ -87,21 +87,27 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(@NonNull Loader<List<NewsArticle>> loader, List<NewsArticle> data) {
         // When we have the list data from website
-        Log.v(LOG_TAG, "We have the data...over");
+        Log.v(LOG_TAG, "Loader is finished");
         RelativeLayout relativeLayout = rootView.findViewById(R.id.businessRLayout);
         ListView businessListView = rootView.findViewById(R.id.default_listView);
+        Log.d(LOG_TAG, data.toString());
 
         // Checking if the data null
-        if (data == null) {
+        if (data.isEmpty()) {
+            Log.v(LOG_TAG, "There is no data :(, inform the user");
             businessListView.setVisibility(View.INVISIBLE);
             TextView dataMessage = rootView.findViewById(R.id.noDataDisplayedTextView);
             dataMessage.setVisibility(View.VISIBLE);
             dataMessage.setText(getContext().getString(R.string.noDataString));
+        } else {
+            Log.v(LOG_TAG, "Looks like we are good");
+
+            CustomListAdapter theArticleAdapter = new CustomListAdapter(getContext(), data);
+            businessListView.setOnItemClickListener(mMessageClickedHandler);
+            businessListView.setAdapter(theArticleAdapter);
+
         }
 
-        CustomListAdapter theArticleAdapter = new CustomListAdapter(getContext(), data);
-        businessListView.setOnItemClickListener(mMessageClickedHandler);
-        businessListView.setAdapter(theArticleAdapter);
 
     }
 

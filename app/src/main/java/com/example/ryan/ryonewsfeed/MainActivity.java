@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         // Create an adapter that knows which fragment should be shown on each page
         NewsTopicPageAdapter adapter = new NewsTopicPageAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(adapter);
-        
+
         TabLayout tabLayout = findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
