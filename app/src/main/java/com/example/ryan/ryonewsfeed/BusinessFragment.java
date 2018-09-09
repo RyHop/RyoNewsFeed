@@ -93,7 +93,6 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         );
 
 
-
         // Parsing the basic String URL
         Uri uriBase = Uri.parse(REQUEST_URL);
 
@@ -136,7 +135,6 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
             businessListView.setAdapter(theArticleAdapter);
 
         }
-
 
     }
 

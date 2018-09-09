@@ -18,8 +18,6 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         Log.v("SettingsActivity", " SETTINGS ACTIVITY STARTED");
 
-
-
     }
     @Override
     public void onBackPressed() {
@@ -40,7 +38,6 @@ public class SettingsActivity extends AppCompatActivity {
             Preference orderByKey = findPreference(getString(R.string.settings_order_by_key));
             bindPreferenceSummaryToValue(orderByKey);
 
-
         }
 
 
@@ -54,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
+            //When preference is changed, set the summary correctly.
             String stringValue = newValue.toString();
             if (preference instanceof ListPreference){
                 ListPreference listPreference = (ListPreference) preference;
@@ -63,7 +61,6 @@ public class SettingsActivity extends AppCompatActivity {
                     preference.setSummary(labels[prefIndex]);
 
                 }
-
             }else {
                 preference.setSummary(stringValue);
             }
