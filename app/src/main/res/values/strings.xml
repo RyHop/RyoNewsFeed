@@ -9,6 +9,27 @@
     <string name="authorStringResource">Author:</string>
     <string name="dateStringResource">Date:</string>
     <string name="InternetErrorMessage">No Internet Access</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="settings_menu_item">settings</string>
+    <string name="settings_min_year_label">Year of Publication</string>
+    <string name="settings_min_year_key" translatable="false">min_year</string>
+    <string name="settings_min_year_default" translatable="false">0</string>
+
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_newest_value</string>
+
+    <!-- Label for order-by magnitude option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
+    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
 
 
 </resources>

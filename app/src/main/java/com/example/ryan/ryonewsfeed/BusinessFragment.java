@@ -2,10 +2,12 @@ package com.example.ryan.ryonewsfeed;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,7 +31,7 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
     View rootView;
 
     private String businessURL = "https://content.guardianapis.com/search?q=business&section=business&show-tags=contributor&show-fields=starRating,headline,thumbnail,short-url&order-by=newest&api-key=43746d72-76d6-4600-b587-8ff703eb6eb7";
-
+    private static final String REQUEST_URL = "https://content.guardianapis.com/search";
 
     public BusinessFragment() {
         // Required empty public constructor
@@ -70,6 +72,8 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         rootView = inflater.inflate(R.layout.fragment_default_list_layout, container, false);
 
         // Inflate the layout for this fragment
@@ -81,7 +85,48 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public Loader<List<NewsArticle>> onCreateLoader(int id, @Nullable Bundle args) {
         Log.v(LOG_TAG, "Calling the NewsArticle Loader Now");
-        return new NewsArticleLoader(getContext(), businessURL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        String minMagnitude = sharedPrefs.getString(
+                getString(R.string.settings_min_year_key),
+                getString(R.string.settings_min_year_default));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+        String testing1 = orderBy;
+        if (orderBy == getString(R.string.settings_order_by_oldest_value)) {
+            Log.v(LOG_TAG, orderBy + "This is the orderBy that is chose");
+
+        } else if (orderBy == getString(R.string.settings_order_by_default)) {
+            Log.v(LOG_TAG, orderBy + "This is the orderBy that is default");
+        } else if (orderBy == getString(R.string.settings_order_by_newest_value)) {
+            Log.v(LOG_TAG, orderBy + "This is the orderBy that is default");
+        }
+
+        Log.v(LOG_TAG, testing1 + "This is the order_by_key");
+
+        // Parsing the basic String URL
+        Uri uriBase = Uri.parse(REQUEST_URL);
+
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
+        Uri.Builder uriBuilder = uriBase.buildUpon();
+
+        // Append query parameter and its value. For example, the `format=geojson`
+        // uriBuilder.appendQueryParameter("format", "geojson");
+        //Example: /search?q=business&section=business&show-tags=contributor&show-fields=starRating,headline,thumbnail,short-url&order-by=newest&api-key=43746d72-76d6-4600-b587-8ff703eb6eb7
+        //Base = https://content.guardianapis.com/search?
+        uriBuilder.appendQueryParameter("q", "business");
+        uriBuilder.appendQueryParameter("section", "business");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("show-fields", "starRating,headline,thumbnail,short-url");
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        String testing = orderBy;
+        Log.v(LOG_TAG, testing + "THIS IS THE ORDER BY WHEN BUILDING URI");
+        uriBuilder.appendQueryParameter("api-key", "43746d72-76d6-4600-b587-8ff703eb6eb7");
+        return new NewsArticleLoader(getContext(), uriBuilder.toString());
     }
 
     @Override

@@ -56,20 +56,20 @@ public class QueryUtils {
             Log.v(LOG_TAG, "Made it to the news Articles DATA");
 
             for (int j = 0; j < resultsArray.length(); j++) {
-                JSONObject aNewsArtile = resultsArray.getJSONObject(j);
-                String Date1 = aNewsArtile.getString("webPublicationDate");
+                JSONObject aNewsArticle = resultsArray.getJSONObject(j);
+                String Date1 = aNewsArticle.getString("webPublicationDate");
 
-                //Formmating Data...use the official Website for SimpleDateFormat and this stackoverflow for reference:https://stackoverflow.com/questions/35939337/how-to-convert-date-to-a-particular-format-in-android#35939543
+                //Formatting Data...use the official Website for SimpleDateFormat and this stackoverflow for reference:https://stackoverflow.com/questions/35939337/how-to-convert-date-to-a-particular-format-in-android#35939543
                 SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                 Date newDate = spf.parse(Date1);
                 spf = new SimpleDateFormat("MMM '/' yyyy");
                 Date1 = spf.format(newDate);
 
-                String Title = aNewsArtile.getString("webTitle");
-                String URL = aNewsArtile.getString("webUrl");
+                String Title = aNewsArticle.getString("webTitle");
+                String URL = aNewsArticle.getString("webUrl");
 
                 //Getting the author which is webTitle under the jags jsonArray
-                JSONArray tagsArray = aNewsArtile.getJSONArray("tags");
+                JSONArray tagsArray = aNewsArticle.getJSONArray("tags");
                 JSONObject theOneTagsObject = tagsArray.getJSONObject(0);
                 String Author = theOneTagsObject.getString("webTitle");
 
