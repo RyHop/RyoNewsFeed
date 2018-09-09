@@ -40,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(settingsIntent);
             return true;
         }
+        if (id == R.id.action_refresh) {
+            Intent newIntent = new Intent(this, MainActivity.class);
+            startActivity(newIntent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }
