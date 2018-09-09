@@ -87,26 +87,12 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         Log.v(LOG_TAG, "Calling the NewsArticle Loader Now");
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
-        String minMagnitude = sharedPrefs.getString(
-                getString(R.string.settings_min_year_key),
-                getString(R.string.settings_min_year_default));
-
         String orderBy = sharedPrefs.getString(
                 getString(R.string.settings_order_by_key),
                 getString(R.string.settings_order_by_default)
         );
-        String testing1 = orderBy;
-        if (orderBy == getString(R.string.settings_order_by_oldest_value)) {
-            Log.v(LOG_TAG, orderBy + "This is the orderBy that is chose");
 
-        } else if (orderBy == getString(R.string.settings_order_by_default)) {
-            Log.v(LOG_TAG, orderBy + "This is the orderBy that is default");
-        } else if (orderBy == getString(R.string.settings_order_by_newest_value)) {
-            Log.v(LOG_TAG, orderBy + "This is the orderBy that is default");
-        }
 
-        Log.v(LOG_TAG, testing1 + "This is the order_by_key");
 
         // Parsing the basic String URL
         Uri uriBase = Uri.parse(REQUEST_URL);
@@ -123,8 +109,6 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         uriBuilder.appendQueryParameter("show-tags", "contributor");
         uriBuilder.appendQueryParameter("show-fields", "starRating,headline,thumbnail,short-url");
         uriBuilder.appendQueryParameter("order-by", orderBy);
-        String testing = orderBy;
-        Log.v(LOG_TAG, testing + "THIS IS THE ORDER BY WHEN BUILDING URI");
         uriBuilder.appendQueryParameter("api-key", "43746d72-76d6-4600-b587-8ff703eb6eb7");
         return new NewsArticleLoader(getContext(), uriBuilder.toString());
     }
@@ -156,7 +140,7 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
 
     }
 
-    // Creating an OnClickListenerfor my AdapterView (ListView) Found this on the Android Website https://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.
+    // Creating an OnClickListener for my AdapterView (ListView) Found this on the Android Website https://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.
     AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             // Do something in response to the click

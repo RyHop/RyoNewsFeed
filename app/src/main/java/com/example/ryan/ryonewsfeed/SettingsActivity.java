@@ -2,9 +2,11 @@ package com.example.ryan.ryonewsfeed;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -15,10 +17,16 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Log.v("SettingsActivity", " SETTINGS ACTIVITY STARTED");
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.customToolbar);
-        //setSupportActionBar(toolbar);
 
 
+
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        //Return to the parent activity
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     public static class SettingsPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
@@ -35,6 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         }
 
+
         private void bindPreferenceSummaryToValue(Preference orderByKey) {
             orderByKey.setOnPreferenceChangeListener(this);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(orderByKey.getContext());
@@ -46,9 +55,19 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             String stringValue = newValue.toString();
-            preference.setSummary(stringValue);
-            preference.setDefaultValue(newValue);
-            return false;
+            if (preference instanceof ListPreference){
+                ListPreference listPreference = (ListPreference) preference;
+                int prefIndex = listPreference.findIndexOfValue(stringValue);
+                if (prefIndex >= 0){
+                    CharSequence[] labels = listPreference.getEntries();
+                    preference.setSummary(labels[prefIndex]);
+
+                }
+
+            }else {
+                preference.setSummary(stringValue);
+            }
+            return true;
         }
     }
 }
