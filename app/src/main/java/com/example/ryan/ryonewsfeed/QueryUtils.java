@@ -70,8 +70,17 @@ public class QueryUtils {
 
                 //Getting the author which is webTitle under the jags jsonArray
                 JSONArray tagsArray = aNewsArticle.getJSONArray("tags");
-                JSONObject theOneTagsObject = tagsArray.getJSONObject(0);
-                String Author = theOneTagsObject.getString("webTitle");
+                String Author;
+                try {
+                    JSONObject theOneTagsObject = tagsArray.getJSONObject(0);
+                    Author = theOneTagsObject.getString("webTitle");
+
+                } catch (JSONException i) {
+
+                    //Author could not be processed, so set author to "Unknown."
+                    Author = "Unknown";
+
+                }
 
                 //Put the article in the array, URL, Title, Author, Date
                 theArticles.add(new NewsArticle(URL, Title, Author, Date1));

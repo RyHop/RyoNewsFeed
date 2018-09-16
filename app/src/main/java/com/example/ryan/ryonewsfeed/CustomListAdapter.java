@@ -26,6 +26,7 @@ public class CustomListAdapter extends ArrayAdapter<NewsArticle> {
             listLayout = LayoutInflater.from(getContext()).inflate(
                     R.layout.listview_item_layout, parent, false);
         }
+
         // Get the Word object located at this position in the list
         NewsArticle currentArticle = getItem(position);
 

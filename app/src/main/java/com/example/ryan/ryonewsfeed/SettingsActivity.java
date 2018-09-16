@@ -36,7 +36,9 @@ public class SettingsActivity extends AppCompatActivity {
 
             addPreferencesFromResource(R.xml.settings_preference);
             Preference orderByKey = findPreference(getString(R.string.settings_order_by_key));
+            Preference pageSizeKey = findPreference(getString(R.string.settings_min_page_key));
             bindPreferenceSummaryToValue(orderByKey);
+            bindPreferenceSummaryToValue(pageSizeKey);
 
         }
 

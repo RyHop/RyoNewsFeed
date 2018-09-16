@@ -58,7 +58,6 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
                 activeNetwork.isConnectedOrConnecting();
 
         if (!isConnected) {
-            TextView showMessage = new TextView(getContext());
             Toast.makeText(getContext(), getContext().getString(R.string.InternetErrorMessage), Toast.LENGTH_LONG).show();
 
         } else {
@@ -75,6 +74,7 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
 
 
         rootView = inflater.inflate(R.layout.fragment_default_list_layout, container, false);
+
 
         // Inflate the layout for this fragment
         return rootView;
@@ -93,6 +93,21 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         );
 
 
+        String pageSize = sharedPrefs.getString(getString(R.string.settings_min_page_key), getString(R.string.settings_min_page_default));
+        int pageNumber = Integer.parseInt(pageSize);
+
+        if (!(pageNumber > 0 && pageNumber < 51)) {
+            // Page number is out of range.
+            Toast.makeText(getContext(), "The default page size is set to 10 since the setting 'Page Size' is out of range.", Toast.LENGTH_LONG).show();
+            pageNumber = 10;
+
+
+        }
+
+        Log.v(LOG_TAG, pageSize + " This is the page size");
+
+
+
         // Parsing the basic String URL
         Uri uriBase = Uri.parse(REQUEST_URL);
 
@@ -108,6 +123,7 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         uriBuilder.appendQueryParameter("show-tags", "contributor");
         uriBuilder.appendQueryParameter("show-fields", "starRating,headline,thumbnail,short-url");
         uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("page-size", pageSize);
         uriBuilder.appendQueryParameter("api-key", "43746d72-76d6-4600-b587-8ff703eb6eb7");
         return new NewsArticleLoader(getContext(), uriBuilder.toString());
     }
@@ -118,17 +134,22 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         Log.v(LOG_TAG, "Loader is finished");
         RelativeLayout relativeLayout = rootView.findViewById(R.id.businessRLayout);
         ListView businessListView = rootView.findViewById(R.id.default_listView);
+        TextView dataMessage = rootView.findViewById(R.id.noDataDisplayedTextView);
         Log.d(LOG_TAG, data.toString());
 
-        // Checking if the data null
+        // Checking if the data null, then display the current meessage and log it.
         if (data.isEmpty()) {
             Log.v(LOG_TAG, "There is no data :(, inform the user");
             businessListView.setVisibility(View.INVISIBLE);
-            TextView dataMessage = rootView.findViewById(R.id.noDataDisplayedTextView);
             dataMessage.setVisibility(View.VISIBLE);
             dataMessage.setText(getContext().getString(R.string.noDataString));
+            dataMessage.isShown();
         } else {
+            //Show the data and not the message since we have data to be displayed.
+            dataMessage.setVisibility(View.INVISIBLE);
+            businessListView.setVisibility(View.VISIBLE);
             Log.v(LOG_TAG, "Looks like we are good");
+            Log.v(LOG_TAG, " Here is the data " + data);
 
             CustomListAdapter theArticleAdapter = new CustomListAdapter(getContext(), data);
             businessListView.setOnItemClickListener(mMessageClickedHandler);

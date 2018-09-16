@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -61,7 +60,6 @@ public class PsychologyFragment extends Fragment {
                 activeNetwork.isConnectedOrConnecting();
 
         if (!isConnected){
-            TextView showMessage = new TextView(getContext());
             Toast.makeText(getContext(),getContext().getString(R.string.InternetErrorMessage),Toast.LENGTH_LONG).show();
 
         }

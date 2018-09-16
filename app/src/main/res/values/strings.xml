@@ -8,12 +8,11 @@
     <string name="noDataString">No Data Retrieved. Refresh Later.</string>
     <string name="authorStringResource">Author:</string>
     <string name="dateStringResource">Date:</string>
-    <string name="InternetErrorMessage">No Internet Access</string>
+    <string name="InternetErrorMessage">No Internet Access. Try clicking refresh in the top right corner later.</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="refresh_label">Refresh</string>
     <string name="settings_label">Settings</string>
-
-
+    <string name="refresh_help_label">Open up the dot icon in the top right corner and click refresh for results!</string>
 
 
     <string name="settings_order_by_label">Order By</string>
@@ -32,5 +31,8 @@
     <string name="settings_order_by_relevance_label">Relevance</string>
     <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
 
+    <string name="settings_min_page_size_label">Minimum Page Size</string>
+    <string name="settings_min_page_key" translatable="false">min_page_size</string>
+    <string name="settings_min_page_default" translatable="false">10</string>
 
 </resources>
